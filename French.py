@@ -54,7 +54,7 @@ class conjTable(object):
 		# Know that all verbs of interest are in 4th table, and separated by "div" tags
 		Tenses = soup('table')[3]('div')
 		
-		Interest = [0, 2, 6, 8, 24]			# Hack to get required tenses
+		Interest = [0, 2, 6, 8, 16, 24]			# Hack to get required tenses
 		
 		for i in Interest:
 			Tense = Tenses[i+1]
