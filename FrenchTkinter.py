@@ -28,6 +28,9 @@ class Game(Tk.Frame):
 		
 		# Make Answer Screen
 		self.answerScreen()
+		
+		# Make Game Screen
+		self.gameScreen()
 	
 	def welcomeScreen(self):
 		'''
@@ -87,13 +90,10 @@ class Game(Tk.Frame):
 		self.select.grid(row=14, column=0)
 		self.Choiceframe.grid()
 	
-	def gameScreen(self, tense):
+	def gameScreen(self):
 		'''
 		Creates the screen for the main game
-		'''
-		self.Choiceframe.grid_forget()
-		self.answerframe.grid_forget()
-		
+		'''		
 		self.personage = {0: 'je', 1: 'tu', 2: 'il/elle', 3: 'nous', 4: 'vous', 5: 'ils/elles'}
 		
 		self.Quit = Tk.Button(self.gameframe, text='Quit', fg='red', command=self.master.quit)
@@ -104,7 +104,7 @@ class Game(Tk.Frame):
 		
 		self.randVerb = random.choice(self.Verbs)
 		self.randPerson = random.randint(0, 5)
-		self.tense = tense
+		self.tense = self.Verbs[0].tenses()[2]
 		
 		# Question Label
 		self.Question = Tk.Label(self.gameframe, text=self.questionfmt(self.randVerb, self.randPerson, self.tense))
@@ -115,14 +115,13 @@ class Game(Tk.Frame):
 		self.AnsBox.grid(row=1, column=1, columnspan=2, rowspan=3)
 		
 		# Choose Verbs again
-		self.ChoseVerb = Tk.Button(self.gameframe, text='Choose Verb', command=self.ChoiceScreen)
+		self.ChoseVerb = Tk.Button(self.gameframe, text='Choose Tense', command=self.ChoiceScreen)
 		self.ChoseVerb.grid(row=14, column=2) 
 		
 		# Select Box
 		self.Sel = Tk.Button(self.gameframe, text='OK', command=self.comparison)
 		self.Sel.grid(row=14, column=0)
 		
-		self.gameframe.grid()
 	
 	def answerScreen(self):
 		'''
@@ -151,7 +150,12 @@ class Game(Tk.Frame):
 		'''
 		Function for doing the main game loop
 		'''
-		self.gameScreen(tense)
+		self.Choiceframe.grid_forget()
+		self.answerframe.grid_forget()
+		
+		self.tense = tense
+		self.nextquestion()
+		
 	
 	def questionfmt(self, verb, person, tense):
 		'''
