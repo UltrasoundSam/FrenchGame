@@ -38,7 +38,7 @@ while True:
 	Valid = ['1', '2', '3', '4', '5', '6']
 	
 	if Tense not in Valid:
-		print "This is not a valid choice - choose integer between {0} - {1}".format(Valid[0], Valid[-1])
+		print("This is not a valid choice - choose integer between {0} - {1}").format(Valid[0], Valid[-1])
 		Tense = raw_input(Request)
 	
 	Tense = Verbs[0].tenses()[int(Tense)-1]

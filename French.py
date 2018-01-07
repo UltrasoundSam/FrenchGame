@@ -68,8 +68,8 @@ class conjTable(object):
 		Text representation of the object
 		"""
 		representation = u"French: {0:<20} English: {1:<20}".format(self.French, self.English)
-		print 80*u"=" + "\n\t" + representation
-		return 80*"="
+		print(80*u"=" + "\n\t" + representation)
+		return(80*"=")
 	
 	def remove_accents(self, input_str):
 		"""
@@ -120,7 +120,7 @@ class conjTable(object):
 			tense = self.alt_tenses()[tense]
 			
 		if tense not in self.tenses():
-			raise ValueError, 'Tense not in table!'
+			raise(ValueError, 'Tense not in table!')
 		
 		return self.tables[tense]
 	
@@ -141,7 +141,7 @@ class conjTable(object):
 		print_header = '\n' + 80*'=' + '\n\t\t\t  {0} --------------- {1}\n'.format(self.French, self.English) + 80*'='
 		print_tense = '\n' + '{0:^80}\n'.format(tense) + 80*'-'
 		print_table = '\n\t\t{0:28} {3}\n\t\t{1:28} {4}\n\t\t{2:28} {5}\n'.format(*tense_list)
-		print print_header + print_tense + print_table
+		print(print_header + print_tense + print_table)
 
 def save_conj(conjtable, filename):
 	"""
