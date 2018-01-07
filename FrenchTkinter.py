@@ -54,7 +54,7 @@ class Game(Tk.Frame):
 				with open(os.path.join(datadir, fi)) as fi2:
 					Buff = cPickle.load(fi2)
 				self.Verbs[i] = Buff
-
+	
 	def ChoiceScreen(self):
 		'''
 		Creates all the buttons for the choice screen
@@ -129,10 +129,10 @@ class Game(Tk.Frame):
 		'''
 		self.gameframe.grid_forget()
 		# Answer Response
-		self.Answer = Tk.Label(self.answerframe, text=u'')
+		self.Answer = Tk.Label(self.answerframe, text=u'', font=('', 14))
 		self.Answer.pack()
 		
-		# Quit Button and Next
+		# Quit and Next Button
 		self.Quit = Tk.Button(self.answerframe, text='Quit', fg='red', command=self.master.quit)
 		self.Quit.pack()
 		
