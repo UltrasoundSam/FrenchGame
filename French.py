@@ -7,7 +7,7 @@ according to CNRS (via TalkinFrench), and their conjugations.
 Chooses one at random, and user has to correctly conjugate it.
 """
 from bs4 import BeautifulSoup
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import re
 import unicodedata
 
@@ -35,17 +35,17 @@ class conjTable(object):
 	    'Content-Type': 'application/x-www-form-urlencoded'
 		}
 		
-		urlverb = self.remove_accents(unicode(self.French)) #urllib2.quote(self.French.encode('utf-8'))
+		urlverb = self.remove_accents(self.French) #urllib2.quote(self.French.encode('utf-8'))
 		self.reqURL = 'http://conjf.cactus2000.de/showverb.en.php?verb={0}'.format(urlverb.split()[-1])
-		request = urllib2.Request(self.reqURL, headers=headers)
-		fi = urllib2.urlopen(request)
+		request = urllib.request.Request(self.reqURL, headers=headers)
+		fi = urllib.request.urlopen(request)
 		
 		# Read in html
 		Webpage = fi.read()
 		fi.close()
 		
 		# Check in case the verb has not been found
-		if re.search("Verb not found.", Webpage):
+		if re.search(b'Verb not found.', Webpage):
 			raise VerbError
 		
 		# Parse web-page using BeautifulSoup
@@ -67,8 +67,8 @@ class conjTable(object):
 		"""
 		Text representation of the object
 		"""
-		representation = u"French: {0:<20} English: {1:<20}".format(self.French, self.English)
-		print(80*u"=" + "\n\t" + representation)
+		representation = "French: {0:<20} English: {1:<20}".format(self.French, self.English)
+		print((80*"=" + "\n\t" + representation))
 		return(80*"=")
 	
 	def remove_accents(self, input_str):
@@ -78,13 +78,13 @@ class conjTable(object):
 		"""
 		nfkd_form = unicodedata.normalize('NFKD', input_str)
 		only_ascii = nfkd_form.encode('ASCII', 'ignore')
-		return only_ascii
+		return str(only_ascii, 'utf-8')
 	
 	def tenses(self):
 		"""
 		Return keys for all tenses of verb
 		"""
-		return self.tables.keys()
+		return list(self.tables.keys())
 	
 	def alt_tenses(self):
 		"""
@@ -102,7 +102,7 @@ class conjTable(object):
 		"""
 		Prints all available tenses in pretty form (i.e. with accents)
 		"""
-		print(',\n'.join(self.tenses()))
+		print((',\n'.join(self.tenses())))
 		
 	def conjugate(self, tense):
 		"""
@@ -120,7 +120,7 @@ class conjTable(object):
 			tense = self.alt_tenses()[tense]
 			
 		if tense not in self.tenses():
-			raise(ValueError, 'Tense not in table!')
+			raise ValueError
 		
 		return self.tables[tense]
 	
@@ -141,7 +141,7 @@ class conjTable(object):
 		print_header = '\n' + 80*'=' + '\n\t\t\t  {0} --------------- {1}\n'.format(self.French, self.English) + 80*'='
 		print_tense = '\n' + '{0:^80}\n'.format(tense) + 80*'-'
 		print_table = '\n\t\t{0:28} {3}\n\t\t{1:28} {4}\n\t\t{2:28} {5}\n'.format(*tense_list)
-		print(print_header + print_tense + print_table)
+		print((print_header + print_tense + print_table))
 
 def save_conj(conjtable, filename):
 	"""

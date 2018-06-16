@@ -6,10 +6,13 @@ Chooses one at random, and user has to correctly conjugate it.
 """
 from bs4 import BeautifulSoup
 import French as fr
-import urllib2
-import cPickle
+import urllib.request, urllib.error, urllib.parse
+import pickle
 import re
 import os
+import sys
+
+sys.setrecursionlimit(10000)
 
 def scrape_data():
 	hdr = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
@@ -20,8 +23,8 @@ def scrape_data():
 	       'Connection': 'keep-alive'}
 	
 	# Grab list of most common French verbs from the internet
-	Request = urllib2.Request('https://www.talkinfrench.com/most-common-verbs-in-french/', headers=hdr)
-	Webpage = urllib2.urlopen(Request).read().decode('utf-8')
+	Request = urllib.request.Request('https://www.talkinfrench.com/most-common-verbs-in-french/', headers=hdr)
+	Webpage = urllib.request.urlopen(Request).read().decode('utf-8')
 	Lines = Webpage.split('\n')
 	
 	# Need to parse through webpage and make a list of most popular verbs
@@ -53,13 +56,12 @@ def scrape_data():
 	for i, verb in enumerate(Popular):
 		try:
 			conjugation = fr.conjTable(verb)
-			filename = os.path.join(path, u'{0}.pkl'.format(verb[0]))
+			filename = os.path.join(path, '{0}.pkl'.format(verb[0]))
 			with open(filename, 'wb') as fi:
-				cPickle.dump(conjugation, fi)
+				pickle.dump(conjugation, fi)
 			 
 			Top[i] = conjugation
 		except fr.VerbError:
 			continue
 	return Top
-	
-	
+

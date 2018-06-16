@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 from Webscrape import scrape_data
 import French as fr
-import Tkinter as Tk
-import cPickle
+import tkinter as Tk
+import pickle
 import re
 import random
 import os
@@ -52,7 +52,7 @@ class Game(Tk.Frame):
 			# Read in all verbs
 			for i, fi in enumerate(VerbFiles):
 				with open(os.path.join(datadir, fi)) as fi2:
-					Buff = cPickle.load(fi2)
+					Buff = pickle.load(fi2)
 				self.Verbs[i] = Buff
 	
 	def ChoiceScreen(self):
@@ -129,7 +129,7 @@ class Game(Tk.Frame):
 		'''
 		self.gameframe.grid_forget()
 		# Answer Response
-		self.Answer = Tk.Label(self.answerframe, text=u'', font=('', 14))
+		self.Answer = Tk.Label(self.answerframe, text='', font=('', 14))
 		self.Answer.pack()
 		
 		# Quit and Next Button
@@ -161,7 +161,7 @@ class Game(Tk.Frame):
 		'''
 		Formats the question in a easy way
 		'''
-		Question = u"Please conjugate the verb: {0} in the {1} form\n for the {2} tense\n\n\n\n".format(verb.French, self.personage[person], tense)
+		Question = "Please conjugate the verb: {0} in the {1} form\n for the {2} tense\n\n\n\n".format(verb.French, self.personage[person], tense)
 		return Question
 	
 	def comparison(self):
@@ -178,9 +178,9 @@ class Game(Tk.Frame):
 		
 		if answer == CorrectAnswer:
 			self.score += 1
-			self.Answer['text'] = u'Correct!'
+			self.Answer['text'] = 'Correct!'
 		else:
-			self.Answer['text'] = u'Incorrect, the correct answer is {0}'.format(CorrectAnswer)
+			self.Answer['text'] = 'Incorrect, the correct answer is {0}'.format(CorrectAnswer)
 		self.answerframe.grid()	
 	
 	def nextquestion(self):
