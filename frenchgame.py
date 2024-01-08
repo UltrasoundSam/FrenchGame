@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from Webscrape import scrape_data
+from webscape import scrape_data
 import pickle
 import random
 import os

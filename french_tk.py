@@ -5,8 +5,8 @@ import pickle
 import random
 import os
 
-from Webscrape import scrape_data
-from French import conjTable
+from webscape import scrape_data
+from french import conjTable
 
 
 class Game(Tk.Frame):

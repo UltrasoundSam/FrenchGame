@@ -5,7 +5,7 @@ according to CNRS (via TalkinFrench), and their conjugations.
 Chooses one at random, and user has to correctly conjugate it.
 """
 # from bs4 import BeautifulSoup
-import French as fr
+import french as fr
 import urllib.request
 import urllib.error
 import urllib.parse
@@ -28,8 +28,8 @@ def scrape_data() -> dict[str: list[str]]:
     # Grab list of most common French verbs from the internet
     base_url = 'https://www.talkinfrench.com/most-common-verbs-in-french/'
     Request = urllib.request.Request(base_url, headers=hdr)
-    Webpage = urllib.request.urlopen(Request).read().decode('utf-8')
-    lines = Webpage.split('\n')
+    webpage = urllib.request.urlopen(Request).read().decode('utf-8')
+    lines = webpage.split('\n')
 
     # Need to parse through webpage and make a list of most popular verbs
     popular = []
