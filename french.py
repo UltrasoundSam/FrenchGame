@@ -25,7 +25,7 @@ class conjTable:
     """
     Object for retaining and printing French conjugation tables
     """
-    def __init__(self, verb: tuple[str, str]):
+    def __init__(self, verb: tuple[str, str]) -> None:
         """
         verb - 		len 2 tuple containing (French, English) form of verb
         """
@@ -92,7 +92,7 @@ class conjTable:
             # Save to dictionary
             self.tables[tense] = conj
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Text representation of the object
         """
@@ -127,13 +127,13 @@ class conjTable:
 
         return alt_tenses
 
-    def tenses_print(self):
+    def tenses_print(self) -> None:
         """
         Prints all available tenses in pretty form (i.e. with accents)
         """
         print((',\n'.join(self.tenses())))
 
-    def conjugate(self, tense: str):
+    def conjugate(self, tense: str) -> list[str]:
         """
         Creates list of the conjugation table for given tense
 
@@ -153,18 +153,18 @@ class conjTable:
 
         return self.tables[tense]
 
-    def prints(self, tense: str):
+    def prints(self, tense: str) -> None:
         """
         Displays (in nice form!) the conjugation table for given tense
 
         input:
-            tense:				Desired tense of conjugation - must be in self.tenses()
-                                or non-accented equivilent using self.remove_accents
+            tense:	Desired tense of conjugation - must be in self.tenses()
+                    or non-accented equivilent using self.remove_accents
 
         returns:
-            conj:				List of conjugation in [je, 		nous
-                                                        tu, 		vous
-                                                        il,			ils] form
+            conj:	List of conjugation in [je, 		nous
+                                            tu, 		vous
+                                            il,			ils] form
         """
         tense_list = self.conjugate(tense)
         print_header = '\n' + 80*'=' + '\n\t\t\t  {0} --------------- {1}\n'.format(self.French, self.English) + 80*'='
@@ -173,14 +173,14 @@ class conjTable:
         print((print_header + print_tense + print_table))
 
 
-def save_conj(conjtable, filename):
+def save_conj(conjtable: conjTable, filename: str) -> None:
     """
     Write the ConjTable object to a file
     """
     return
 
 
-def load_conj(filename):
+def load_conj(filename: str) -> None:
     """
     Reads ConjTable information from file
     """
